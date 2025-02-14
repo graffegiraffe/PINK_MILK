@@ -17,8 +17,8 @@ public class Warehouse implements Serializable {
 
     public void addProduct(Product product) {
         if (product == null) {
-            CustomLogger.warning("Попытка добавить null-продукт на склад.");
-            throw new IllegalArgumentException("Продукт не может быть null.");
+            CustomLogger.warning("Попытка добавить null-продукт на склад");
+            throw new IllegalArgumentException("Продукт не может быть null");
         }
         storedProducts.add(product);
         CustomLogger.info("Добавлен продукт на склад: " + product);
@@ -37,8 +37,8 @@ public class Warehouse implements Serializable {
                 return product;
             }
         }
-        CustomLogger.warning("Продукт с названием " + productName + " не найден на складе.");
-        throw new IllegalArgumentException("Продукт с таким названием отсутствует на складе.");
+        CustomLogger.warning("Продукт с названием " + productName + " не найден на складе");
+        throw new IllegalArgumentException("Продукт с таким названием отсутствует на складе");
     }
 
     @Override

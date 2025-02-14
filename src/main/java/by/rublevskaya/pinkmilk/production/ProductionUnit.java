@@ -7,7 +7,7 @@ import by.rublevskaya.pinkmilk.storage.Warehouse;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//производство фермы
 public class ProductionUnit {
     private final Warehouse warehouse;
 
@@ -25,8 +25,8 @@ public class ProductionUnit {
             throw new NotEnoughMilkException("Недостаточно молока для производства продукта: " + productName);
         }
 
-        double requiredVolume = milk.getVolume();
-        double remainingMilkVolume = availableMilkVolume - requiredVolume;
+        double requiredVolume = milk.getVolume(); //объем молока
+        double remainingMilkVolume = availableMilkVolume - requiredVolume;//остаток
 
         List<Product> milkProducts = new ArrayList<>();
         for (Product product : warehouse.getStoredProducts()) {
@@ -37,10 +37,11 @@ public class ProductionUnit {
                 }
             }
         }
+
         warehouse.getStoredProducts().removeAll(milkProducts);
 
         if (remainingMilkVolume > 0) {
-            Product remainingMilk = new Product("Молоко", remainingMilkVolume, 3); // Срок хранения 3 дня
+            Product remainingMilk = new Product("Молоко", remainingMilkVolume, 3);
             warehouse.addProduct(remainingMilk);
         }
 

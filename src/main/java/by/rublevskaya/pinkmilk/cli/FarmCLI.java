@@ -62,6 +62,7 @@ public class FarmCLI {
             }
         }
     }
+
     private void removeProduct(Scanner scanner) {
         System.out.print("Введите название продукта для удаления: ");
         String productName = scanner.nextLine().trim();
@@ -76,31 +77,30 @@ public class FarmCLI {
             CustomLogger.warning("Ошибка при удалении продукта с названием: " + productName);
         }
     }
+
     private void addCow(Scanner scanner) {
         try {
-            // Ввод идентификатора коровы
+
             System.out.print("Введите идентификатор коровы: ");
             int id = Integer.parseInt(scanner.nextLine());
 
             if (id <= 0) {
-                System.out.println("Ошибка: Идентификатор коровы должен быть положительным числом.");
+                System.out.println("Ошибка: Идентификатор коровы должен быть положительным числом");
                 return;
             }
 
-            // Ввод количества молока в день
             System.out.print("Введите количество молока (литры/в день): ");
             double milkPerDay = Double.parseDouble(scanner.nextLine());
 
             if (milkPerDay < 0) {
-                System.out.println("Ошибка: Количество молока не может быть отрицательным.");
+                System.out.println("Ошибка: Количество молока не может быть отрицательным");
                 return;
             }
 
-            // Если данные корректны, создаём корову и добавляем её
             Cow cow = new Cow(id, milkPerDay);
             farmService.addCow(cow);
-
             System.out.println("Корова успешно добавлена: " + cow);
+
         } catch (NumberFormatException e) {
             System.out.println("Ошибка: введены некорректные данные. Используйте числа.");
         } catch (IllegalArgumentException e) {
@@ -160,7 +160,7 @@ public class FarmCLI {
 
         try {
             productionUnit.processMilk(new by.rublevskaya.pinkmilk.model.Milk(milkVolume), productName, shelfLife);
-            System.out.println("Продукт успешно создан.");
+            System.out.println("Продукт успешно создан");
         } catch (Exception e) {
             System.out.println("Ошибка при создании продукта: " + e.getMessage());
         }
@@ -183,7 +183,7 @@ public class FarmCLI {
                         product -> {
                             try {
                                 farmService.distributeProduct(product, consumer);
-                                System.out.println("Продукт успешно распределен.");
+                                System.out.println("Продукт успешно распределен");
                             } catch (Exception e) {
                                 System.out.println("Ошибка распределения продукта: " + e.getMessage());
                             }
@@ -198,25 +198,24 @@ public class FarmCLI {
 
     private void saveState() {
         farmService.saveState(SAVE_FILE);
-        System.out.println("Состояние фермы успешно сохранено.");
+        System.out.println("Состояние фермы успешно сохранено");
     }
 
     private void petCow(Scanner scanner) {
         System.out.print("Введите идентификатор коровы, которую хотите почухать: ");
         int cowId = Integer.parseInt(scanner.nextLine());
-
         Cow cow = farmService.getCows().stream()
                 .filter(c -> c.getId() == cowId)
                 .findFirst()
                 .orElse(null);
         if (cow == null) {
-            System.out.println("Корова с идентификатором " + cowId + " не найдена.");
+            System.out.println("Корова с идентификатором " + cowId + " не найдена");
         } else {
-            System.out.println("Спасибо! Корова с идентификатором " + cowId + " очень рада вашему вниманию!");
+            System.out.println("Ой пасибки!!!!!!)))  Корова с идентификатором " + cowId + " очень рада вашему вниманию!");
         }
     }
 
     private void exit() {
-        System.out.println("Выход из программы...");
+        System.out.println("Выход из программы...ПОКА");
     }
 }

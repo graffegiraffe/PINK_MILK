@@ -8,7 +8,7 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private final String name;
     private final double volume; // в литрах
-    private final int shelfLife; // срок хранения (в днях)
+    private final int shelfLife; // срок хранения в днях
 
     public Product(String name, double volume, int shelfLife) {
         if (volume <= 0) {
@@ -17,7 +17,7 @@ public class Product implements Serializable {
         }
         if (shelfLife <= 0) {
             CustomLogger.warning("Попытка создания продукта с некорректным сроком хранения: " + shelfLife);
-            throw new IllegalArgumentException("Срок хранения продукта должен быть положительным.");
+            throw new IllegalArgumentException("Срок хранения продукта должен быть положительным");
         }
 
         this.name = name;

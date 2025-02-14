@@ -17,7 +17,7 @@ public class CustomLogger {
     public static void log(String level, String message, Throwable throwable, String logFile) {
 
         if (logFile == null || logFile.isEmpty()) {
-            System.err.println("Ошибка: Файл для логирования не задан.");
+            System.err.println("Ошибка: Файл для логирования не задан");
             return;
         }
 
@@ -41,7 +41,7 @@ public class CustomLogger {
                 writer.write(logMessage + System.lineSeparator());
             }
         } catch (IOException e) {
-            System.err.println("Ошибка записи в лог-файл `" + logFile + "`: " + e.getMessage());
+            System.err.println("Ошибка записи в лог-файл " + logFile + " : " + e.getMessage());
             e.printStackTrace();
         }
     }
