@@ -21,16 +21,11 @@ public class ProductionUnitTest {
 
     @Test
     public void processMilkSuccessfullyCreatesProduct() {
-        // Arrange
-        warehouse.addProduct(new Product("Молоко", 10.0, 3)); // Добавляем 10 литров молока в склад
-        Milk milk = new Milk(5.0); // Требуется 5 литров молока
+        warehouse.addProduct(new Product("Молоко", 10.0, 3));
+        Milk milk = new Milk(5.0);
         String productName = "Йогурт";
         int shelfLife = 7;
-
-        // Act
         Product createdProduct = productionUnit.processMilk(milk, productName, shelfLife);
-
-        // Assert
         assertEquals("Название созданного продукта должно совпадать", productName, createdProduct.getName());
         assertEquals("Объем созданного продукта должен быть 5 литров", 5.0, createdProduct.getVolume(), 0.001);
         assertEquals("Срок хранения продукта должен быть 7 дней", shelfLife, createdProduct.getShelfLife());
@@ -43,30 +38,18 @@ public class ProductionUnitTest {
 
     @Test(expected = NotEnoughMilkException.class)
     public void processMilkThrowsExceptionWhenNotEnoughMilk() {
-        // Arrange
-        warehouse.addProduct(new Product("Молоко", 3.0, 3)); // На складе 3 литра молока
-        Milk milk = new Milk(5.0); // Требуется 5 литров молока
-
-        // Act
+        warehouse.addProduct(new Product("Молоко", 3.0, 3));
+        Milk milk = new Milk(5.0);
         productionUnit.processMilk(milk, "Сыр", 10);
-
-        // Assert
-        // Исключение NotEnoughMilkException должно быть выброшено,
-        // иначе тест упадет
     }
 
     @Test
     public void processMilkHandlesExactAmountOfMilk() {
-        // Arrange
-        warehouse.addProduct(new Product("Молоко", 5.0, 3)); // Добавляем ровно 5 литров молока на склад
-        Milk milk = new Milk(5.0); // Запрашиваем 5 литров молока
+        warehouse.addProduct(new Product("Молоко", 5.0, 3));
+        Milk milk = new Milk(5.0);
         String productName = "Кефир";
         int shelfLife = 5;
-
-        // Act
         Product createdProduct = productionUnit.processMilk(milk, productName, shelfLife);
-
-        // Assert
         assertEquals("Продукт должен быть создан с правильным названием", productName, createdProduct.getName());
         assertEquals("Объем созданного продукта должен быть 5 литров", 5.0, createdProduct.getVolume(), 0.001);
         assertTrue("На складе не должно быть молока с названием 'Молоко'",

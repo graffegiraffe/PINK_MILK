@@ -17,14 +17,12 @@ public class CustomLoggerTest {
 
     @Before
     public void setUp() throws IOException {
-        // Создаем временный файл для логов
         tempLogFile = File.createTempFile("test-log", ".log");
-        tempLogFile.deleteOnExit(); // Удаляем файл после завершения тестов
+        tempLogFile.deleteOnExit();
     }
 
     @After
     public void tearDown() {
-        // Удаляем временный файл, если он существует
         if (tempLogFile.exists()) {
             tempLogFile.delete();
         }
@@ -32,13 +30,8 @@ public class CustomLoggerTest {
 
     @Test
     public void testInfoLog() throws IOException {
-        // Arrange: сообщение для логирования
         String testMessage = "Test INFO log message";
-
-        // Act: вызываем метод info, используя путь к временному файлу
         CustomLogger.log("INFO", testMessage, null, tempLogFile.getAbsolutePath());
-
-        // Assert: проверяем содержимое лог-файла
         try (BufferedReader reader = new BufferedReader(new FileReader(tempLogFile))) {
             String logEntry = reader.readLine();
             assertNotNull("Лог-файл пуст, хотя ожидалась запись", logEntry);
@@ -49,13 +42,8 @@ public class CustomLoggerTest {
 
     @Test
     public void testWarningLog() throws IOException {
-        // Arrange: сообщение для логирования
         String testMessage = "Test WARNING log message";
-
-        // Act: вызываем метод warning, используя путь к временному файлу
         CustomLogger.log("WARNING", testMessage, null, tempLogFile.getAbsolutePath());
-
-        // Assert: проверяем содержимое лог-файла
         try (BufferedReader reader = new BufferedReader(new FileReader(tempLogFile))) {
             String logEntry = reader.readLine();
             assertNotNull("Лог-файл пуст, хотя ожидалась запись", logEntry);
@@ -66,14 +54,9 @@ public class CustomLoggerTest {
 
     @Test
     public void testLogWithThrowable() throws IOException {
-        // Arrange: создаем исключение для логирования
         String testMessage = "Test log with exception";
         Throwable testException = new RuntimeException("Test exception");
-
-        // Act: вызываем метод log, записывающий сообщение с исключением
         CustomLogger.log("ERROR", testMessage, testException, tempLogFile.getAbsolutePath());
-
-        // Assert: проверяем содержимое всего лог-файла
         StringBuilder logContent = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(tempLogFile))) {
             String line;
@@ -82,8 +65,6 @@ public class CustomLoggerTest {
             }
         }
         String fullLog = logContent.toString();
-
-        // Убедиться, что лог содержит требуемую информацию
         assertTrue("Лог должен содержать уровень ERROR", fullLog.contains("ERROR"));
         assertTrue("Лог должен содержать текст сообщения", fullLog.contains(testMessage));
         assertTrue("Лог должен содержать стек-трейс исключения", fullLog.contains("RuntimeException"));
